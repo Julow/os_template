@@ -1,7 +1,7 @@
-(** This is the main file if you are using static linking without config file.
-    It is not used if you are using a config file and ocsigenserver *)
+(* Entry module of the application on both sides. The code of the
+   application is in the library Project_name (lib/); this module only links
+   it. The server part is loaded by ocsigenserver from project_name.conf or
+   run by the standalone executable (app/main/). The client part is the main
+   module of the client program. *)
 
-let%server _ =
-  Ocsigen.Server.start
-    [ Ocsigen.Server.host
-        [Staticmod.run ~dir:"local/var/www/project_name" (); Eliom.App.run ()] ]
+module%shared Project_name = Project_name
